@@ -15,7 +15,7 @@ public class AuthorController {
     @Autowired
     AuthorRepository repo;
 
-    // Read by Id
+    // Read by ID
     @GetMapping("/author/{id}")
     public Author getAuthorById(@PathVariable int id) {
         Optional<Author> returnVal = repo.findById(id);
