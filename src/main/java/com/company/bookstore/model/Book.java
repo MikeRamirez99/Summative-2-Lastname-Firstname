@@ -21,12 +21,12 @@ public class Book implements Serializable {
     private int id;
     private String isbn;
     private LocalDate publish_date;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "author_id")
     private Author author;
     private String title;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "publisher_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "publisher_id")
     private Publisher publisher;
     private BigDecimal price;
 
