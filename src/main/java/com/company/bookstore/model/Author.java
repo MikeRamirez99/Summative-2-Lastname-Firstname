@@ -13,8 +13,8 @@ public class Author {
 
     @Id
     @Column(name = "author_id")
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Integer author_id;
 
     @NotNull

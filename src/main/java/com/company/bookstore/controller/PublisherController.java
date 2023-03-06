@@ -24,7 +24,7 @@ PublisherRepository repo;
 
 // GET route to read a Publisher by ID
 @GetMapping("/publisher/{id}")
-public Publisher getPublisherByID(@RequestBody int id)
+public Publisher getPublisherByID(@PathVariable int id)
 {
     Optional<Publisher> response = repo.findById(id);
     //If publisher not found, return null
@@ -53,7 +53,7 @@ public void updatePublisher(@RequestBody Publisher publisher)
 // DELETE route to delete a Publisher by ID
 @DeleteMapping("/publisher/{id}")
 @ResponseStatus(HttpStatus.NO_CONTENT)
-public void updatePublisher(@RequestBody int id)
+public void updatePublisher(@PathVariable int id)
 {
     repo.deleteById(id);
 }

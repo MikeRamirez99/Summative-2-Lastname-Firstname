@@ -26,7 +26,7 @@ public class BookController {
 
     // GET route to read a Book by ID
     @GetMapping("/book/{id}")
-    public Book getBookByID(@RequestBody int id)
+    public Book getBookByID(@PathVariable int id)
     {
         Optional<Book> response = repo.findById(id);
         //If publisher not found, return null
@@ -55,7 +55,7 @@ public class BookController {
     // DELETE route to delete a Book by ID
     @DeleteMapping("/book/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateBook(@RequestBody int id)
+    public void updateBook(@PathVariable int id)
     {
         repo.deleteById(id);
     }

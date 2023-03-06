@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,16 +20,29 @@ public class Book implements Serializable {
     @Id
     @Column(name = "book_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private int id;
+
+    @NotNull
     private String isbn;
+
+    @NotNull
     private LocalDate publish_date;
-    @OneToOne(cascade = CascadeType.MERGE)
+
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
-    private Author author;
+    @NotNull
+    private List<Author> authors;
+
+    @NotNull
     private String title;
-    @OneToOne(cascade = CascadeType.MERGE)
+
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "publisher_id")
-    private Publisher publisher;
+    @NotNull
+    private List<Publisher> publisher;
+
+    @NotNull
     private BigDecimal price;
 
     public int getId() {
@@ -54,12 +69,12 @@ public class Book implements Serializable {
         this.publish_date = publish_date;
     }
 
-    public Author getAuthor() {
-        return author;
+    public List<Author> getAuthors() {
+        return authors;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
     public String getTitle() {
@@ -70,11 +85,11 @@ public class Book implements Serializable {
         this.title = title;
     }
 
-    public Publisher getPublisher() {
+    public List<Publisher> getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(Publisher publisher) {
+    public void setPublisher(List<Publisher> publisher) {
         this.publisher = publisher;
     }
 
@@ -91,12 +106,12 @@ public class Book implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id && Objects.equals(isbn, book.isbn) && Objects.equals(publish_date, book.publish_date) && Objects.equals(author, book.author) && Objects.equals(title, book.title) && Objects.equals(publisher, book.publisher) && Objects.equals(price, book.price);
+        return id == book.id && Objects.equals(isbn, book.isbn) && Objects.equals(publish_date, book.publish_date) && Objects.equals(authors, book.authors) && Objects.equals(title, book.title) && Objects.equals(publisher, book.publisher) && Objects.equals(price, book.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, isbn, publish_date, author, title, publisher, price);
+        return Objects.hash(id, isbn, publish_date, authors, title, publisher, price);
     }
 
     @Override
@@ -105,7 +120,7 @@ public class Book implements Serializable {
                 "id=" + id +
                 ", isbn='" + isbn + '\'' +
                 ", publish_date=" + publish_date +
-                ", author=" + author +
+                ", authors=" + authors +
                 ", title='" + title + '\'' +
                 ", publisher=" + publisher +
                 ", price=" + price +
