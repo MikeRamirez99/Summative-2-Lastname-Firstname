@@ -19,7 +19,7 @@ public class BookController {
     // POST route to create a Book
     @PostMapping("/book")
     @ResponseStatus(HttpStatus.CREATED)
-    public Book addPublisher(@RequestBody Book book)
+    public Book addBook(@RequestBody Book book)
     {
         return repo.save(book);
     }
@@ -55,7 +55,7 @@ public class BookController {
     // DELETE route to delete a Book by ID
     @DeleteMapping("/book/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateBook(@PathVariable int id)
+    public void deleteBook(@PathVariable int id)
     {
         repo.deleteById(id);
     }
