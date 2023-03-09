@@ -26,14 +26,14 @@ public class Book implements Serializable {
     @NotNull
     private LocalDate publish_date;
 
-    @OneToMany(mappedBy = "author_id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Author> author_id;
+    @NotNull
+    private int author_id;
 
     @NotNull
     private String title;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Publisher> publisher_id;
+    @NotNull
+    private int publisher_id;
 
 
     @NotNull
@@ -63,11 +63,11 @@ public class Book implements Serializable {
         this.publish_date = publish_date;
     }
 
-    public Set<Author> getAuthor_id() {
+    public int getAuthor_id() {
         return author_id;
     }
 
-    public void setAuthor_id(Set<Author> author_id) {
+    public void setAuthor_id(int author_id) {
         this.author_id = author_id;
     }
 
@@ -79,11 +79,11 @@ public class Book implements Serializable {
         this.title = title;
     }
 
-    public Set<Publisher> getPublisher_id() {
+    public int getPublisher_id() {
         return publisher_id;
     }
 
-    public void setPublisher_id(Set<Publisher> publisher_id) {
+    public void setPublisher_id(int publisher_id) {
         this.publisher_id = publisher_id;
     }
 

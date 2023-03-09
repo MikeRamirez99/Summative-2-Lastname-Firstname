@@ -1,6 +1,7 @@
 package com.company.bookstore.repository;
 
 import com.company.bookstore.model.Author;
+import com.company.bookstore.model.Book;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,10 +21,18 @@ import static org.junit.Assert.assertFalse;
 public class AuthorRepositoryTests {
 
     @Autowired
+    BookRepository bookRepo;
+
+    @Autowired
     AuthorRepository authorRepo;
+
+    @Autowired
+    PublisherRepository publisherRepo;
 
     @Before
     public void setUp() throws Exception {
+        bookRepo.deleteAll();
+        publisherRepo.deleteAll();
         authorRepo.deleteAll();
     }
 
@@ -39,12 +48,13 @@ public class AuthorRepositoryTests {
         author.setPostal_code("11100");
         author.setPhone("111-222-3333");
         author.setEmail("sking@gmail.com");
+        author.setBooks(new HashSet<Book>());
 
         //Act...
         author = authorRepo.save(author);
 
         //Assert...
-        Optional<Author> author1 = authorRepo.findById(author.getAuthor_id());
+        Optional<Author> author1 = authorRepo.findById(author.getId());
 
         assertEquals(author1.get(), author);
     }
@@ -61,11 +71,12 @@ public class AuthorRepositoryTests {
         author.setPostal_code("11100");
         author.setPhone("111-222-3333");
         author.setEmail("sking@gmail.com");
+        author.setBooks(new HashSet<Book>());
 
         authorRepo.save(author);
 
         //Assert...
-        Optional<Author> author1 = authorRepo.findById(author.getAuthor_id());
+        Optional<Author> author1 = authorRepo.findById(author.getId());
 
         assertEquals(author1.get(), author);
     }
@@ -82,6 +93,7 @@ public class AuthorRepositoryTests {
         author.setPostal_code("11100");
         author.setPhone("111-222-3333");
         author.setEmail("sking@gmail.com");
+        author.setBooks(new HashSet<Book>());
 
         authorRepo.save(author);
 
@@ -94,6 +106,7 @@ public class AuthorRepositoryTests {
         author2.setPostal_code("11100");
         author2.setPhone("111-222-3333");
         author2.setEmail("sking@gmail.com");
+        author.setBooks(new HashSet<Book>());
 
         authorRepo.save(author2);
 
@@ -115,6 +128,7 @@ public class AuthorRepositoryTests {
         author.setPostal_code("11100");
         author.setPhone("111-222-3333");
         author.setEmail("sking@gmail.com");
+        author.setBooks(new HashSet<Book>());
 
         authorRepo.save(author);
 
@@ -124,7 +138,7 @@ public class AuthorRepositoryTests {
         authorRepo.save(author);
 
         //Assert...
-        Optional<Author> author1 = authorRepo.findById(author.getAuthor_id());
+        Optional<Author> author1 = authorRepo.findById(author.getId());
 
         assertEquals(author1.get(), author);
     }
@@ -141,14 +155,15 @@ public class AuthorRepositoryTests {
         author.setPostal_code("11100");
         author.setPhone("111-222-3333");
         author.setEmail("sking@gmail.com");
+        author.setBooks(new HashSet<Book>());
 
         authorRepo.save(author);
 
         //Act...
-        authorRepo.deleteById(author.getAuthor_id());
+        authorRepo.deleteById(author.getId());
 
         //Assert...
-        Optional<Author> author1 = authorRepo.findById(author.getAuthor_id());
+        Optional<Author> author1 = authorRepo.findById(author.getId());
         assertFalse(author1.isPresent());
     }
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -41,6 +42,10 @@ public class Author {
     @NotNull
     private String email;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_id")
+    private Set<Book> books;
+
     public Author() {
     }
 
@@ -56,11 +61,11 @@ public class Author {
         this.email = email;
     }
 
-    public Integer getAuthor_id() {
+    public Integer getId() {
         return author_id;
     }
 
-    public void setAuthor_id(Integer author_id) {
+    public void setId(Integer author_id) {
         this.author_id = author_id;
     }
 
@@ -128,17 +133,25 @@ public class Author {
         this.email = email;
     }
 
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Author)) return false;
         Author author = (Author) o;
-        return getAuthor_id().equals(author.getAuthor_id()) && getFirst_name().equals(author.getFirst_name()) && getLast_name().equals(author.getLast_name()) && getStreet().equals(author.getStreet()) && getCity().equals(author.getCity()) && getState().equals(author.getState()) && getPostal_code().equals(author.getPostal_code()) && getPhone().equals(author.getPhone()) && getEmail().equals(author.getEmail());
+        return Objects.equals(getId(), author.getId()) && Objects.equals(getFirst_name(), author.getFirst_name()) && Objects.equals(getLast_name(), author.getLast_name()) && Objects.equals(getStreet(), author.getStreet()) && Objects.equals(getCity(), author.getCity()) && Objects.equals(getState(), author.getState()) && Objects.equals(getPostal_code(), author.getPostal_code()) && Objects.equals(getPhone(), author.getPhone()) && Objects.equals(getEmail(), author.getEmail()) && Objects.equals(getBooks(), author.getBooks());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAuthor_id(), getFirst_name(), getLast_name(), getStreet(), getCity(), getState(), getPostal_code(), getPhone(), getEmail());
+        return Objects.hash(getId(), getFirst_name(), getLast_name(), getStreet(), getCity(), getState(), getPostal_code(), getPhone(), getEmail(), getBooks());
     }
 }
 

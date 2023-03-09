@@ -1,5 +1,7 @@
 package com.company.bookstore.repository;
 
+import com.company.bookstore.model.Author;
+import com.company.bookstore.model.Book;
 import com.company.bookstore.model.Publisher;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,11 +22,19 @@ public class PublisherRepositoryTest
 {
     //Set up autowired
     @Autowired
+    BookRepository bookRepo;
+
+    @Autowired
+    AuthorRepository authorRepo;
+
+    @Autowired
     PublisherRepository publisherRepo;
 
     @Before
     public void setUp() throws Exception {
+        bookRepo.deleteAll();
         publisherRepo.deleteAll();
+        authorRepo.deleteAll();
     }
 
     // Create Publisher
@@ -39,6 +50,7 @@ public class PublisherRepositoryTest
         publisher.setPostal_code("10019");
         publisher.setPhone("212-782-9000");
         publisher.setEmail("penguinrandomhouse@penguinrandomhouse.com");
+        publisher.setBooks(new HashSet<Book>());
 
         //ACT
         publisherRepo.save(publisher);
@@ -61,6 +73,7 @@ public class PublisherRepositoryTest
         publisher.setPostal_code("10019");
         publisher.setPhone("212-782-9000");
         publisher.setEmail("penguinrandomhouse@penguinrandomhouse.com");
+        publisher.setBooks(new HashSet<Book>());
 
         //ACT
         publisherRepo.save(publisher);
@@ -84,6 +97,7 @@ public class PublisherRepositoryTest
         publisher.setPostal_code("10019");
         publisher.setPhone("212-782-9000");
         publisher.setEmail("penguinrandomhouse@penguinrandomhouse.com");
+        publisher.setBooks(new HashSet<Book>());
 
         //ACT
         publisherRepo.save(publisher);
@@ -106,6 +120,7 @@ public class PublisherRepositoryTest
         publisher.setPostal_code("10019");
         publisher.setPhone("212-782-9000");
         publisher.setEmail("penguinrandomhouse@penguinrandomhouse.com");
+        publisher.setBooks(new HashSet<Book>());
 
         //ACT
         publisherRepo.save(publisher);
@@ -130,6 +145,7 @@ public class PublisherRepositoryTest
         publisher.setPostal_code("10019");
         publisher.setPhone("212-782-9000");
         publisher.setEmail("penguinrandomhouse@penguinrandomhouse.com");
+        publisher.setBooks(new HashSet<Book>());
 
         //ACT
         publisherRepo.save(publisher);
@@ -139,5 +155,4 @@ public class PublisherRepositoryTest
         Optional<Publisher> publisherTest = publisherRepo.findById(publisher.getId());
         assertFalse(publisherTest.isPresent());
     }
-
 }

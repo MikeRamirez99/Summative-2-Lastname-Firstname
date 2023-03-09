@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -37,6 +38,11 @@ public class Publisher implements Serializable {
 
     @NotNull
     private String email;
+
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "publisher_id")
+    private Set<Book> books;
 
     public int getId() {
         return id;
@@ -102,17 +108,25 @@ public class Publisher implements Serializable {
         this.email = email;
     }
 
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Publisher)) return false;
         Publisher publisher = (Publisher) o;
-        return id == publisher.id && Objects.equals(name, publisher.name) && Objects.equals(street, publisher.street) && Objects.equals(city, publisher.city) && Objects.equals(state, publisher.state) && Objects.equals(postal_code, publisher.postal_code) && Objects.equals(phone, publisher.phone) && Objects.equals(email, publisher.email);
+        return getId() == publisher.getId() && Objects.equals(getName(), publisher.getName()) && Objects.equals(getStreet(), publisher.getStreet()) && Objects.equals(getCity(), publisher.getCity()) && Objects.equals(getState(), publisher.getState()) && Objects.equals(getPostal_code(), publisher.getPostal_code()) && Objects.equals(getPhone(), publisher.getPhone()) && Objects.equals(getEmail(), publisher.getEmail()) && Objects.equals(getBooks(), publisher.getBooks());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, street, city, state, postal_code, phone, email);
+        return Objects.hash(getId(), getName(), getStreet(), getCity(), getState(), getPostal_code(), getPhone(), getEmail(), getBooks());
     }
 
     @Override
