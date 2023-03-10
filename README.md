@@ -8,7 +8,7 @@ As an API user, I would like to create, read, update, and delete books.
 As an API user, I would like to find all books by a given author.  
 
 ### Work Distribution:
-Book API - Miguel Ramirez/Riley Morris 
+Book API - Miguel Ramirez/Riley Morris  
 Author API - Riley Morris  
 Publisher API - Miguel Ramirez  
 GraphQL - Riley Morris  
